@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<DDDefinition xmlns="http://www.cern.ch/cms/DDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cern.ch/cms/DDL ../../DDLSchema/DDLSchema.xsd">
+<!--    -->
+ <ConstantsSection label="ppsDummySensors.xml" eval="true">
+<!--  -->
+<!--  -->
+<!-- external radius of beam pipe in RP area -->
+ <Constant name="BeamPipeR"          value="40.0*mm"/>
+<!--  -->
+<!-- TrackerX/2 (=20mm) -->
+ <Constant name="TrkDx"         value="10.0*mm"/>
+<!-- TrackerY/2 (=18mm) -->
+ <Constant name="TrkDy"         value="9.0*mm"/>
+<!-- TrackerZ/2 (=0.5mm Fake)-->
+ <Constant name="TrkDz"         value="0.5*mm"/>
+<!-- ToFX/2 (=15mm) -->
+ <Constant name="ToFDx"         value="7.5*mm"/>
+<!-- ToFY/2 (=12mm) -->
+ <Constant name="ToFDy"         value="6.0*mm"/>
+<!-- ToFZ/2 (=0.5mm Fake)-->
+ <Constant name="ToFDz"         value="0.5*mm"/>
+
+<!--     PPS geometry (trial)                                                                           -->
+<!-- Fist   station at 204m (should be 203.8)           -->
+<!-- Second station at 215m                             -->
+<!-- Quartic station at 215.5m                          -->
+  <Constant name="TrkStation1ZLocal"     value="[pps:TrkStation1Z]-[pps:ZMainShift]"/>
+  <Constant name="TrkStation2ZLocal"     value="[pps:TrkStation2Z]-[pps:ZMainShift]"/>
+  <Constant name="ToFZLocal"             value="[pps:ToFZ]-[pps:ZMainShift]"/>
+  <Constant name="TrkStation1X"           value="-3*mm"/>
+  <Constant name="TrkStation2X"           value="-3*mm"/>
+  <Constant name="ToFStationX"            value="-3*mm"/>
+</ConstantsSection>
+
+<!-- -->
+
+ <SolidSection label="ppsDummySensors.xml">
+               <Tubs name="SIDET"  rMin="0*fm" rMax="0.5*m" dz="5*mm" startPhi="0*deg" deltaPhi="360*deg"/>
+               <Tubs name="ToFDET" rMin="0*fm" rMax="0.5*m" dz="5*mm" startPhi="0*deg" deltaPhi="360*deg"/>
+               <!-- <Box name="SIDET"  dx="50*[TrkDx]" dy="50*[TrkDy]" dz="[TrkDz]"/> -->
+               <!-- <Box name="ToFDET" dx="50*[ToFDx]" dy="50*[ToFDy]" dz="[ToFDz]"/> -->
+ </SolidSection>
+<!-- -->
+<LogicalPartSection label="ppsDummySensors.xml">
+<!--    -->
+ <LogicalPart name="SIDET" category="unspecified">
+              <rSolid name="SIDET"/>
+              <rMaterial name="materialspps:Silicon"/>
+ </LogicalPart>
+ <LogicalPart name="ToFDET" category="unspecified">
+              <rSolid name="ToFDET"/>
+              <rMaterial name="materialspps:Silicon"/>
+ </LogicalPart>
+</LogicalPartSection>
+<!--  -->
+<PosPartSection label="ppsDummySensors.xml">
+<!--  -->
+ <PosPart copyNumber="1">
+   <rParent name="pps:PPS"/>
+   <rChild name="ppsDummySensors:SIDET"/>
+   <Translation x="0*fm" y="0*fm" z="-[pps:HppsZ]/2+[TrkStation1ZLocal]" />
+  <rRotation name="PPSRot:PPSMAIN"/>
+ </PosPart>
+<!--  -->
+  <PosPart copyNumber="2">
+    <rParent name="pps:PPS"/>
+    <rChild name="ppsDummySensors:SIDET"/>
+    <Translation x="0*fm" y="0*fm" z="-[pps:HppsZ]/2+[TrkStation2ZLocal]" />
+    <rRotation name="PPSRot:PPSMAIN"/>
+ </PosPart>
+ <PosPart copyNumber="1">
+   <rParent name="pps:PPS"/>
+   <rChild name="ppsDummySensors:ToFDET"/>
+   <Translation x="0*fm" y="0*fm" z="-[pps:HppsZ]/2+[ToFZLocal]" />
+   <rRotation name="PPSRot:PPSMAIN"/>
+ </PosPart>
+</PosPartSection>
+ <!--    -->
+<!--  -->
+</DDDefinition>

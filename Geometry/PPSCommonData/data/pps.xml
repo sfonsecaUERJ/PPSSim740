@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<DDDefinition xmlns="http://www.cern.ch/cms/DDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.cern.ch/cms/DDL ../../DDLSchema/DDLSchema.xsd">
+
+<ConstantsSection label="pps.xml" eval="true">
+ <Constant name="SafeDelta"    value="0.0*mm"/>  <!-- To avoid overlaps -->
+ <Constant name="Rmin"         value="0*fm"/>
+ <Constant name="ZMainShift"   value="203.0*m"/>
+ <Constant name="TrkStation1Z" value="204.0*m"/>
+ <Constant name="TrkStation2Z" value="214.0*m"/>
+ <Constant name="ToFZ"         value="215.0*m"/>
+ <Constant name="HppsZ"        value="18.0*m-[SafeDelta]"/>
+ <Constant name="HppsR"        value="1.0*m-[SafeDelta]"/>
+</ConstantsSection>
+
+<SolidSection label="pps.xml">
+ <Tubs name="PPS" rMin="[Rmin]" rMax="[HppsR]" dz="[HppsZ]/2" startPhi="0*deg" deltaPhi="360*deg"/>
+</SolidSection>
+
+<LogicalPartSection label="pps.xml">
+ <LogicalPart name="PPS" category="unspecified">
+  <rSolid name="PPS"/>
+  <rMaterial name="materialspps:Air"/>
+ </LogicalPart>
+</LogicalPartSection>
+
+</DDDefinition>
